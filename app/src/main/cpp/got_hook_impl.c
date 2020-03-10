@@ -75,16 +75,18 @@ void got_hook(const char *lib_path, const char *ori_func_name, hook_t handle)
 
     hook_handle = handle;
     got_addr = elf_ptr->base + get_got_of_sym(elf_ptr, ori_func_name);
+
     g_ori_func_addr = *((Elf_Addr *)got_addr);
+
 
     // Todo
     // invoke handle function
     if (!modify_mem_prop(got_addr)) {
-#if defined(__LP64__)
-        *((Elf_Addr *)got_addr) = (Elf_Addr)arm64_got_hook_stub;
-#else
-        *((Elf_Addr *)got_addr) = (Elf_Addr *)arm32_got_hook_stub;
-#endif
+    #if defined(__LP64__)
+            *((Elf_Addr *)got_addr) = (Elf_Addr)arm64_got_hook_stub;
+    #else
+            *((Elf_Addr *)got_addr) = (Elf_Addr *)arm32_got_hook_stub;
+    #endif
     }
 
     close_elf(elf_ptr);

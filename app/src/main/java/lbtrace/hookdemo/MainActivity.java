@@ -2,6 +2,7 @@ package lbtrace.hookdemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.io.File;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
         tv.setText(stringFromJNI(new File(getPackageCodePath()).getParent()));
+        Log.i("MainActivity", "onCreate: ");
     }
 
     /**

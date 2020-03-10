@@ -17,12 +17,12 @@ static void test_got_hook(const char *apk_path)
 {
     char lib_path[128];
 
-#if defined(__LP64__)
-    snprintf(lib_path, 128, "%s/lib/arm64/libnative-lib.so", apk_path);
-#else
-    snprintf(lib_path, 128, "%s/lib/arm/libnative-lib.so", apk_path);
-#endif
-
+    #if defined(__LP64__)
+        snprintf(lib_path, 128, "%s/lib/arm64/libnative-lib.so", apk_path);
+    #else
+        snprintf(lib_path, 128, "%s/lib/arm/libnative-lib.so", apk_path);
+    #endif
+    __android_log_print(ANDROID_LOG_INFO, log_tag, "start hook");
     got_hook(lib_path, "__android_log_print", got_hook_handle);
     __android_log_print(ANDROID_LOG_INFO, log_tag, "hook demo");
 }
